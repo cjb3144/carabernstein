@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Cara Bernstein — Dell Career</title>
+  <style>
+    :root {
+      --dell-blue: #0076ce;
+      --bg: #f8fafc;
+      --text: #111827;
+      --muted: #4b5563;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem 1rem;
+    }
+    .header-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 800px;
+      width: 100%;
+    }
+    .header-photos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .header-text { text-align: center; }
+    .headshot {
+      width: 240px;
+      height: 300px;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 12px;
+      border: 3px solid #fff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    header h1 { margin: 0; font-size: 2.75rem; }
+    header h2 { margin: .25rem 0 0; color: var(--dell-blue); font-weight: 400; font-size: 1.4rem; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 1rem; }
+    .summary {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    .summary p { margin: 0; font-size: 1.05rem; line-height: 1.7; }
+    .section-heading {
+      text-align: center;
+      color: var(--dell-blue);
+      margin: 2.5rem 0 1rem;
+      font-size: 1.6rem;
+    }
+
+    /* Timeline */
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(80px, 1fr));
+      gap: .5rem;
+      padding: 3.5rem .5rem 2rem;
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 2rem;
+      left: .5rem;
+      right: .5rem;
+      height: 4px;
+      background: var(--dell-blue);
+      border-radius: 2px;
+      z-index: 0;
+    }
+    .timeline-item {
+      position: relative;
+      min-width: 0;
+      background: var(--card);
+      border-radius: 16px;
+      padding: .75rem .5rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: transform .2s;
+      z-index: 1;
+    }
+    .timeline-item:hover { transform: translateY(-3px); }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      top: -2.4rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 16px;
+      height: 16px;
+      background: var(--dell-blue);
+      border-radius: 50%;
+      border: 3px solid var(--bg);
+      z-index: 2;
+    }
+    .timeline-item h3 { margin: 0 0 .25rem; color: var(--dell-blue); font-size: .8rem; word-break: break-word; }
+    .timeline-item p { margin: 0; color: var(--muted); font-size: .7rem; word-break: break-word; }
+    .timeline-item a { color: inherit; text-decoration: none; }
+    .timeline-item a:hover { text-decoration: underline; }
+    .endpoint {
+      background: var(--dell-blue);
+      border-color: var(--dell-blue);
+      color: #fff;
+      padding: 1rem .5rem;
+    }
+    .endpoint h3 { color: #fff; font-size: 1rem; }
+    .endpoint p { color: #e0f2fe; font-size: .7rem; }
+    .endpoint::before { background: #fff; border-color: var(--dell-blue); }
+
+    /* Expandable sections */
+    .section {
+      margin: 1.5rem 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .section summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .section summary::-webkit-details-marker { display: none; }
+    .section summary h3 { margin: 0; color: var(--text); }
+    .section summary .years {
+      display: block;
+      color: var(--muted);
+      font-size: .95rem;
+      margin-top: .2rem;
+    }
+    .section summary::after {
+      content: '+';
+      font-size: 1.5rem;
+      color: var(--dell-blue);
+      margin-left: 1rem;
+    }
+    .section[open] summary::after { content: '−'; }
+    .section .content {
+      padding: 0 1.2rem 1.2rem;
+      border-top: 1px solid var(--border);
+    }
+    .section .content h4 {
+      color: var(--dell-blue);
+      margin: 1.2rem 0 .4rem;
+      font-size: 1.05rem;
+    }
+    .section .content p { margin: 0 0 .8rem; }
+    .section .content ul { padding-left: 1.2rem; margin: 0 0 .8rem; }
+    .section .content li { margin-bottom: .6rem; }
+
+    .media {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .media img {
+      flex: 1 1 240px;
+      min-width: 0;
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      display: block;
+    }
+    .media img[src*='Incubator'] {
+      flex: 0 1 auto;
+      max-height: 260px;
+      align-self: center;
+    }
+    .placeholder {
+      flex: 1 1 240px;
+      min-height: 160px;
+      border: 2px dashed #cbd5e1;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      background: #f1f5f9;
+    }
+    .placeholder.video::before { content: '▶ '; margin-right: .4rem; }
+
+    footer { text-align: center; color: var(--muted); padding: 2rem 1rem; font-size: .85rem; }
+    @media (max-width: 600px) {
+      header h1 { font-size: 2.2rem; }
+      .endpoint h3 { font-size: 1.2rem; }
+      .endpoint p { font-size: .85rem; }
+      .timeline-item { padding: .75rem; }
+      .media img { flex: 1 1 160px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class='header-card'>
+      <div class='header-text'>
+        <h1>Cara Bernstein</h1>
+        <h2>Consultant, Product Marketing</h2>
+      </div>
+      <div class='header-photos'>
+        <img class='headshot' src='Top1.jpg' alt='Cara Bernstein'>
+        <img class='headshot' src='Top2.jpg' alt='Cara Bernstein'>
+      </div>
+    </div>
+  </header>
+
+  <div class='container'>
+    <section class='summary'>
+      <p>Strategic program leader with experience driving customer insights, sales enablement, and product engagement initiatives across global organizations. Known for bringing together Product, Sales, Marketing, Engineering, agency, and executive stakeholders to transform business priorities into scalable programs and experiences. Skilled at building cross-functional programs, managing operational workflows, and creating customer and seller experiences that generate actionable insights, strengthen alignment, and drive measurable business outcomes.</p>
+    </section>
+
+    <h2 class='section-heading'>Career Highlights</h2>
+    <div class='timeline' role='list' aria-label='Career timeline'>
+      <div class='timeline-item endpoint' role='listitem'>
+        <h3>2021</h3>
+        <p>Sr. Advisor, Product Marketing</p>
+      </div>
+      <div class='timeline-item' role='listitem'>
+        <h3><a href='#pbnx' onclick='openSection("pbnx"); return false;'>2021 – 2023</a></h3>
+        <p><a href='#pbnx' onclick='openSection("pbnx"); return false;'>PBnX CAC</a><br><a href='#pbnx' onclick='openSection("pbnx"); return false;'>Beta Tester Plus</a><br><a href='#pbnx' onclick='openSection("pbnx"); return false;'>Apple Compete</a></p>
+      </div>
+      <div class='timeline-item' role='listitem'>
+        <h3>2023 – 2025</h3>
+        <p><a href='#itslive' onclick='openSection("itslive"); return false;'>It&#39;s LIVE!</a><br><a href='#thedish' onclick='openSection("thedish"); return false;'>The Dish</a></p>
+      </div>
+      <div class='timeline-item' role='listitem'>
+        <h3>2025 – current</h3>
+        <p><a href='#activation' onclick='openSection("activation"); return false;'>Activation Incubator</a><br><a href='#insights' onclick='openSection("insights"); return false;'>Customer Insights</a></p>
+      </div>
+      <div class='timeline-item endpoint' role='listitem'>
+        <h3>2026</h3>
+        <p>Consultant, Product Marketing</p>
+      </div>
+    </div>
+
+    <h2 class='section-heading'>Program details</h2>
+
+    <details id='pbnx' class='section'>
+      <summary>
+        <div>
+          <h3>PBnX / Apple Compete / Beta Tester Plus</h3>
+          <span class='years'>2021 – 2023</span>
+        </div>
+      </summary>
+      <div class='content'>
+        <h4>PBnX Customer Advisory Council</h4>
+        <p>Led monthly virtual sessions with Small Business customers, partnering with Product Group and Sales to gather actionable insights that informed future product development. Owned program budget, customer recruitment strategy, session planning, executive speaker preparation, and post-event reporting. Successfully integrated DVT2 beta testing into the program, enabling customers to evaluate pre-release hardware and provide direct feedback to engineering teams.</p>
+        <h4>Apple Compete</h4>
+        <p>Led monthly virtual sessions with Apple users, creating a structured feedback channel for Product Group to better understand cross-platform customer experiences and inform product strategy. Collaborated with LOB leads on content development and speaker readiness, while incorporating DVT2 beta testing into the program, capturing comparative insights between Dell devices and participants' existing Apple ecosystems.</p>
+        <div class='media'>
+          <img src='PBX1.png' alt='PBX Customer Advisory Council overview'>
+          <img src='PBX2.PNG' alt='PBX OneIT Pilot virtual session'>
+        </div>
+      </div>
+    </details>
+
+    <details id='itslive' class='section'>
+      <summary>
+        <div>
+          <h3>It&#39;s LIVE!</h3>
+          <span class='years'>2023 – 2025</span>
+        </div>
+      </summary>
+      <div class='content'>
+        <ul>
+          <li>Managed and hosted a biweekly global live-streamed product showcase, connecting customers directly with newly launched products and solutions while enabling Sales teams to drive customer engagement and pipeline opportunities. Led end-to-end program execution, including content strategy, production planning, and stakeholder alignment across Product, Sales, Marketing, and external agency partners.</li>
+          <li>Partnered closely with an external agency to develop show concepts, create and edit scripts, manage registration experiences, prepare SMEs for on-camera interviews, coordinate studio logistics, and oversee audience engagement initiatives. Served as on-camera host, interviewing product experts to bring product stories to life for a global audience.</li>
+          <li>Collaborated with Social Media teams to drive audience acquisition and awareness through targeted customer outreach and promotional campaigns, including amplification across Dell's LinkedIn channels.</li>
+          <li>Worked with LOB leads and Messaging teams to prioritize featured product launches, shape messaging, and ensure customers gained clear insights into new capabilities, use cases, and business value.</li>
+          <li>Managed strategic partner participation with Intel, NVIDIA, Google, and Microsoft, integrating joint messaging and thought leadership into the program to enhance customer relevance and reach.</li>
+        </ul>
+        <div class='media'>
+          <img src='It%27s%20Live%201.png' alt='It&#39;s LIVE! on set with products'>
+          <img src='It%27s%20LIVE%202.png' alt='It&#39;s LIVE! partner discussion'>
+        </div>
+      </div>
+    </details>
+
+    <details id='thedish' class='section'>
+      <summary>
+        <div>
+          <h3>The Dish</h3>
+          <span class='years'>2023 – 2025</span>
+        </div>
+      </summary>
+      <div class='content'>
+        <ul>
+          <li>Managed and hosted a global internal sales enablement video series designed to help sales teams lead customer conversations around business outcomes and solutions—not just product features. Partnered with SMEs and business leaders to translate complex technology topics into actionable customer engagement strategies for a global sales audience.</li>
+          <li>Collaborated with Learning &amp; Development to integrate the series into required sales training curricula, increasing visibility, adoption, and ongoing seller readiness across global sales organizations.</li>
+          <li>Led end-to-end program execution in partnership with an external agency, including content strategy, show concept development, script writing and editing, SME preparation, production logistics, and speaker coordination. Served as the on-camera host, facilitating discussions and interviewing experts to deliver engaging and impactful training content.</li>
+          <li>Measured program performance through viewership and engagement reporting, using audience insights to refine content strategy and improve the effectiveness of future episodes.</li>
+          <li>Managed strategic partner participation with Intel, Google, and Microsoft, incorporating partner expertise and industry perspectives to enhance seller knowledge and customer conversation readiness.</li>
+        </ul>
+        <div class='media'>
+          <img src='Dish%201.png' alt='The Dish diner-style set'>
+          <img src='Dish%202.png' alt='The Dish solutions-focused learning'>
+        </div>
+      </div>
+    </details>
+
+    <details id='activation' class='section'>
+      <summary>
+        <div>
+          <h3>Activation Incubator</h3>
+          <span class='years'>2025 – current</span>
+        </div>
+      </summary>
+      <div class='content'>
+        <ul>
+          <li>A rapid innovation program designed to transform sales feedback, customer objections, and emerging ideas into tangible sales enablement assets within 3–4 weeks. Acted as the bridge between Sales, Product Marketing, and Messaging to quickly identify gaps, prioritize opportunities, and deliver resources that improved seller effectiveness and customer engagement.</li>
+          <li>Led the development and execution of high-impact tools, demos, and activation materials for use across the sales organization, including Tech Summits, Global Power Weeks, field events, and customer-facing engagements. Ensured solutions were scalable, actionable, and aligned to key business priorities.</li>
+          <li>Partnered with external agency teams to manage project intake, stakeholder alignment, creative development, production timelines, and delivery, enabling rapid turnaround from concept to launch while maintaining quality and business relevance.</li>
+        </ul>
+        <div class='media'>
+          <img src='Incubator4.png' alt='Activation Incubator XPS event space'>
+          <img src='Incubator3.png' alt='Activation Incubator Super Tech Spec materials'>
+        </div>
+      </div>
+    </details>
+
+    <details id='insights' class='section'>
+      <summary>
+        <div>
+          <h3>Customer Insights</h3>
+          <span class='years'>2025 – current</span>
+        </div>
+      </summary>
+      <div class='content'>
+        <h4>Channel Partner Advisory Board</h4>
+        <p>Launched and led the inaugural CSG Partner Advisory Board, bringing channel partners to Austin for direct engagement with executive leadership and PG. Designed the program to capture actionable partner insights, strengthen relationships, and influence future product and business strategy.</p>
+        <h4>City Tours</h4>
+        <p>Manage Customer Insights City Tours, coordinating opportunities for PG Planners to meet directly with customers in their own environments. Partner with LOB leads and Sales teams to identify participants, schedule engagements, and capture actionable customer insights that feed back into the broader Customer Insights engine to inform product strategy and development.</p>
+        <h4>CAC/SAB support</h4>
+        <p>Support global Customer Advisory Council (CAC) and Small Business Advisory Board (SAB), partnering with PG, Sales, executive leadership, and external agency teams to create high-impact customer engagement experiences. Contribute to core team planning, agenda development, and event strategy, while coordinating venue selection, logistics, transportation, offsite activities, and onsite execution.</p>
+        <div class='media'>
+          <img src='Channel1.jpg' alt='Customer Insights Intel partner event'>
+          <img src='SAB1.jpg' alt='Small Business Advisory Board session'>
+        </div>
+      </div>
+    </details>
+
+    <details id='techsummit' class='section'>
+      <summary>
+        <div>
+          <h3>Misc: CSG Tech Summit</h3>
+          <span class='years'>Ongoing</span>
+        </div>
+      </summary>
+      <div class='content'>
+        <ul>
+          <li>Lead high-visibility engagement and video initiatives for global Tech Summit events, creating interactive experiences that increase seller engagement and reinforce strategic business priorities. Serve as an on-camera host for game shows, attendee interviews, and event-floor coverage while partnering with cross-functional stakeholders to deliver memorable experiences that amplify event impact.</li>
+        </ul>
+        <div class='media'>
+          <img src='TS1.png' alt='Tech Summit event'>
+          <img src='TS2.png' alt='Tech Summit event'>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <footer>
+    &copy; Cara Bernstein · Dell Career Page
+  </footer>
+
+  <script>
+    function openSection(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.open = true;
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  </script>
+</body>
+</html>
